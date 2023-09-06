@@ -1,0 +1,67 @@
+import java.util.Random;
+import java.util.Scanner;
+
+class Number_Guessing_Game 
+{
+    public static void main(String[] args) 
+    {
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+
+        int totalRounds = 3;
+        int score = 0;
+
+        System.out.println("Welcome to the Number Guessing Game!");
+        System.out.println("You have " + totalRounds + " rounds to play.");
+        
+        for (int round = 1; round <= totalRounds; round++) 
+        {
+            int lowerBound = 1;
+            int upperBound = 100;
+            int numberToGuess = random.nextInt(upperBound - lowerBound + 1) + lowerBound;
+            int maxAttempts = 7;
+            int attempts = 0;
+
+            System.out.println("\nRound " + round + ":");
+            System.out.println("I've selected a random number between " + lowerBound + " and " + upperBound + ". Try to guess it!");
+
+            while (attempts < maxAttempts) 
+            {
+                System.out.print("Enter your guess: ");
+                int userGuess = scanner.nextInt();
+                attempts++;
+
+                if (userGuess < lowerBound || userGuess > upperBound) 
+                {
+                    System.out.println("Please enter a number between " + lowerBound + " and " + upperBound + ".");
+                } 
+                else if (userGuess < numberToGuess) 
+                {
+                    System.out.println("Try higher! Attempts left: " + (maxAttempts - attempts));
+                } 
+                else if (userGuess > numberToGuess) 
+                {
+                    System.out.println("Try lower! Attempts left: " + (maxAttempts - attempts));
+                } 
+                else 
+                {
+                    int points = maxAttempts - attempts + 1;
+                    System.out.println("Congratulations! You guessed the number " + numberToGuess + " in " + attempts + " attempts.");
+                    System.out.println("You earned " + points + " points for this round.");
+                    score += points;
+                    break;
+                }
+            }
+
+            if (attempts >= maxAttempts) 
+            {
+                System.out.println("Woopss!! You've reached the maximum number of attempts. The number was " + numberToGuess + ".");
+            }
+        }
+
+        System.out.println("\nGame Over!");
+        System.out.println("Your total score is: " + score);
+
+        
+    }
+}
